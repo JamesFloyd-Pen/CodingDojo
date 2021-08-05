@@ -2,11 +2,42 @@ using Xunit;
 
 public class TracingTriangles
 {
+    /*
     public int LongestPath(int[][] triangle)
     {
         // Insert your solution code here
-        return 0;
+        var sum = 0;
+        foreach(var row in triangle)
+        {
+            sum += row.Max();
+        }
+
+        if (triangle.Length <= 2) return n;
+
+        var paths = new List<int>();
+        paths.Add (triangle[0][0] + triangle[1][0] + triangle[2][0]);
+        paths.Add (triangle[0][0] + triangle[1][0] + triangle[2][1]);
+        paths.Add (triangle[0][0] + triangle[1][1] + triangle[2][1]);
+        paths.Add (triangle[0][0] + triangle[1][1] + triangle[2][2]);
+        
+        return paths.Max();
+        //return 0;
     }
+    */
+
+    public int LongestPath(int[][] triangle, int? row = 0, int? column = 0)
+    {
+        if(row + 1 > triangle.Length) 
+        {
+            return triangle[row][column];
+
+        }
+        // First value, second finds the longest path in the second row, the third finds the longest path in the third row
+        return triangle[row!.Value][column!.Value] + Math.Max(LongestPath(triangle, row+1,column),+LongestPath(triangle,row+1,column+1));
+    }
+
+
+
 
     [Fact]
     public void Test_case_one_()
